@@ -25,6 +25,8 @@ public class AgentAI :  Agent
     public GameObject projectile;
     public float shootForce = 60f;
     public int fire = 0;
+    public float fireRate = 5f;
+    bool readyToShoot = true;
 
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -34,7 +36,7 @@ public class AgentAI :  Agent
     //-----------------------Action Space---------------------------
     public override void OnActionReceived(ActionBuffers actions)
     {
-        /*
+        
         //Movement Actions
         float moveX = actions.ContinuousActions[0];
         float moveZ = actions.ContinuousActions[1];
@@ -49,7 +51,7 @@ public class AgentAI :  Agent
         fire = actions.DiscreteActions[0];
 
         //Character Movement
-        /*Vector3 move = transform.right * moveX + transform.forward * moveZ;
+        Vector3 move = transform.right * moveX + transform.forward * moveZ;
         characterController.Move(move * speed * Time.deltaTime);
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
@@ -58,7 +60,7 @@ public class AgentAI :  Agent
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         cameraT.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);*/
+        transform.Rotate(Vector3.up * mouseX);
 
 
     }
@@ -67,14 +69,20 @@ public class AgentAI :  Agent
     {
         transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
 
-        if (fire==1)
+        if (fire==1 && readyToShoot)
         {
             GameObject bullet = Instantiate(projectile, attackPoint.position, Quaternion.identity);
             Vector3 direction = attackPoint.position - fpsCam.transform.position;
             direction.y += 0.5f;
             bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
-
+            readyToShoot = false;
+            Invoke("ResetReadyToShoot", fireRate);
         }
+    }
+
+    void ResetReadyToShoot()
+    {
+        readyToShoot = true;
     }
 
 }

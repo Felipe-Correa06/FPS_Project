@@ -9,6 +9,8 @@ public class ShootProjectiles : MonoBehaviour
     public GameObject projectile;
 
     public float shootForce = 50f;
+    public float fireRate = 1f;
+    bool readyToShoot = true;
 
     void Start()
     {
@@ -20,14 +22,21 @@ public class ShootProjectiles : MonoBehaviour
 
         bool leftMouseClick = Input.GetMouseButtonDown(0);
 
-        if (leftMouseClick)
+        if (leftMouseClick && readyToShoot)
         {
             GameObject bullet = Instantiate(projectile, attackPoint.position, Quaternion.identity);
             Vector3 direction = attackPoint.position - fpsCam.transform.position;
             direction.y += 0.5f;
             bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
+            readyToShoot = false;
+            Invoke("ResetReadyToShoot", fireRate);
         }
 
+    }
+
+    void ResetReadyToShoot()
+    {
+        readyToShoot = true;
     }
 
 }

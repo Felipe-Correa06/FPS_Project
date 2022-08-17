@@ -344,6 +344,7 @@ MonoBehaviour:
   attackPoint: {fileID: 346500279}
   projectile: {fileID: 525365542}
   shootForce: 50
+  fireRate: 1
 --- !u!1 &1579907464
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +570,10 @@ PrefabInstance:
       propertyPath: fpsCam
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 6155820175133581751, guid: a160299fa7e7034438b7cb16822cf5d9, type: 3}
+      propertyPath: fireRate
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6155820175133581751, guid: a160299fa7e7034438b7cb16822cf5d9, type: 3}
       propertyPath: m_Enabled
       value: 0
