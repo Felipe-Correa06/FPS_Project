@@ -23,7 +23,7 @@ public class AgentAI :  Agent
     public Camera fpsCam;
     public Transform attackPoint;
     public GameObject projectile;
-    float shootForce = 100f;
+    public float shootForce = 60f;
     public int fire = 0;
 
     public override void CollectObservations(VectorSensor sensor)
@@ -68,28 +68,13 @@ public class AgentAI :  Agent
         transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
 
         if (fire==1)
-            Shoot();
+        {
+            GameObject bullet = Instantiate(projectile, attackPoint.position, Quaternion.identity);
+            Vector3 direction = attackPoint.position - fpsCam.transform.position;
+            direction.y += 0.5f;
+            bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
+
+        }
     }
 
-    void Shoot()
-    {
-        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.5f));
-        RaycastHit hit;
-
-        Vector3 targetPoint;
-
-        if (Physics.Raycast(ray, out hit))
-            targetPoint = hit.point;
-        else
-            targetPoint = ray.GetPoint(100);
-
-        Vector3 direction = targetPoint - attackPoint.position;
-
-        GameObject bullet = Instantiate(projectile, attackPoint.position, Quaternion.identity);
-
-        bullet.transform.forward = direction.normalized;
-
-        bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
-
-    }
 }

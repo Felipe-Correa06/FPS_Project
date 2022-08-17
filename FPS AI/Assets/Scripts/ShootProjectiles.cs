@@ -8,7 +8,7 @@ public class ShootProjectiles : MonoBehaviour
     public Transform attackPoint;
     public GameObject projectile;
 
-    float shootForce = 50f;
+    public float shootForce = 50f;
 
     void Start()
     {
@@ -18,13 +18,13 @@ public class ShootProjectiles : MonoBehaviour
     void Update()
     {
 
-        bool clickInput = Input.GetMouseButtonDown(0);
+        bool leftMouseClick = Input.GetMouseButtonDown(0);
 
-        if (clickInput)
+        if (leftMouseClick)
         {
             GameObject bullet = Instantiate(projectile, attackPoint.position, Quaternion.identity);
             Vector3 direction = attackPoint.position - fpsCam.transform.position;
-            direction.y = 0.02f;
+            direction.y += 0.5f;
             bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
         }
 
