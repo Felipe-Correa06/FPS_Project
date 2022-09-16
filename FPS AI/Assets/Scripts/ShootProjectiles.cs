@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class ShootProjectiles : MonoBehaviour
@@ -12,6 +14,7 @@ public class ShootProjectiles : MonoBehaviour
     public float fireRate = 1f;
     bool readyToShoot = true;
 
+    public float reward = 0f;
     void Start()
     {
         
@@ -29,14 +32,18 @@ public class ShootProjectiles : MonoBehaviour
             direction.y += 0.5f;
             bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
             readyToShoot = false;
+            Debug.Log(reward);
             Invoke("ResetReadyToShoot", fireRate);
         }
 
     }
-
     void ResetReadyToShoot()
     {
         readyToShoot = true;
     }
-
+    
+    public void SetReward(float reward)
+    {
+        this.reward += reward;
+    }
 }

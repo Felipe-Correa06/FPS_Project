@@ -4,9 +4,9 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using Unity.VisualScripting;
 
-
-public class AgentAI :  Agent
+public class AgentAI : Agent
 {
     //Character Movement
     public CharacterController characterController;
@@ -23,10 +23,17 @@ public class AgentAI :  Agent
     public Camera fpsCam;
     public Transform attackPoint;
     public GameObject projectile;
-    public float shootForce = 60f;
+    public float shootForce = 50f;
     public int fire = 0;
     public float fireRate = 5f;
     bool readyToShoot = true;
+    public override void OnEpisodeBegin()
+    {
+
+        Debug.Log("test");
+        transform.position = Vector3.zero;
+
+    }
 
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -57,7 +64,7 @@ public class AgentAI :  Agent
         characterController.Move(velocity * Time.deltaTime);
 
         //Mouse Movement
-        xRotation -= mouseY;
+        //xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         cameraT.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
@@ -78,6 +85,7 @@ public class AgentAI :  Agent
             readyToShoot = false;
             Invoke("ResetReadyToShoot", fireRate);
         }
+
     }
 
     void ResetReadyToShoot()
@@ -85,4 +93,8 @@ public class AgentAI :  Agent
         readyToShoot = true;
     }
 
+    /* void SetAgentReward(float reward)
+    {
+        SetReward(reward);
+    }*/
 }
