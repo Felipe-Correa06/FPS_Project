@@ -32,7 +32,6 @@ public class ShootProjectiles : MonoBehaviour
             direction.y += 0.5f;
             bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
             readyToShoot = false;
-            Debug.Log(reward);
             Invoke("ResetReadyToShoot", fireRate);
         }
 

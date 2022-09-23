@@ -139,6 +139,12 @@ MonoBehaviour:
   gravity: -9.81
   sensivity: 100
   cameraT: {fileID: 6155820176582675987}
+  fpsCam: {fileID: 0}
+  attackPoint: {fileID: 0}
+  projectile: {fileID: 0}
+  shootForce: 50
+  fire: 0
+  fireRate: 5
 --- !u!114 &6155820175133581749
 MonoBehaviour:
   m_ObjectHideFlags: 0

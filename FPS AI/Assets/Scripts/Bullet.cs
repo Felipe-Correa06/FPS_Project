@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public AgentAI agentAI;
+    public SpawnEnemy spawnEnemy;
     //public ShootProjectiles sProjectiles;
     // Start is called before the first frame update
     void Start()
@@ -22,13 +23,18 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.name.Contains("Enemy"))
         {
-            Debug.Log("hit");
-            //sProjectiles.SetReward(5f);
-            agentAI.AddReward(+5f);
-            agentAI.EndEpisode();
+            Debug.Log("hit enemy");
+            spawnEnemy.SpawnRandomEnemy();
+            Destroy(collision.collider.gameObject);
+            Destroy(gameObject);
+            agentAI.AddReward(+1f);
+            //agentAI.EndEpisode();
+            
         }
         else
         {
+            Debug.Log("hit wall or floor");
+            Destroy(gameObject);
             agentAI.AddReward(-5F);
             //agentAI.EndEpisode();
         }

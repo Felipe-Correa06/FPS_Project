@@ -27,12 +27,19 @@ public class AgentAI : Agent
     public int fire = 0;
     public float fireRate = 5f;
     bool readyToShoot = true;
+
+    //episode begin
+    Vector3 initialPosition;
+    float resetPosition = 1f;
     public override void OnEpisodeBegin()
     {
-
-        Debug.Log("test");
-        transform.position = Vector3.zero;
-
+        Debug.Log("episode begin");
+        /*initialPosition = transform.localPosition;
+        if (resetPosition > 1)
+        {
+            transform.localPosition = initialPosition;
+        }
+        resetPosition=2;*/
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -48,7 +55,7 @@ public class AgentAI : Agent
         float moveX = actions.ContinuousActions[0];
         float moveZ = actions.ContinuousActions[1];
         float mouseX = actions.ContinuousActions[2];
-        float mouseY = actions.ContinuousActions[3];
+        //float mouseY = actions.ContinuousActions[3];
         /*Debug.Log("MoveX: " + moveX);
         Debug.Log("\nMoveZ: " + moveZ);
         Debug.Log("\nMouseX: " + mouseX);
@@ -58,10 +65,10 @@ public class AgentAI : Agent
         fire = actions.DiscreteActions[0];
 
         //Character Movement
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
+        /*Vector3 move = transform.right * moveX + transform.forward * moveZ;
         characterController.Move(move * speed * Time.deltaTime);
         velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
+        characterController.Move(velocity * Time.deltaTime);*/
 
         //Mouse Movement
         //xRotation -= mouseY;
