@@ -52,17 +52,18 @@ public class AgentAI : Agent
     {
         
         //Movement Actions
-        float moveX = actions.ContinuousActions[0];
-        float moveZ = actions.ContinuousActions[1];
-        float mouseX = actions.ContinuousActions[2];
+        //float moveX = actions.ContinuousActions[0];
+        //float moveZ = actions.ContinuousActions[1];
+        float mouseX = actions.ContinuousActions[0];
         //float mouseY = actions.ContinuousActions[3];
         /*Debug.Log("MoveX: " + moveX);
-        Debug.Log("\nMoveZ: " + moveZ);
-        Debug.Log("\nMouseX: " + mouseX);
-        Debug.Log("\nMouseY: " + mouseY);*/
+        //Debug.Log("\nMoveZ: " + moveZ);
+        //Debug.Log("\nMouseX: " + mouseX);
+         Debug.Log("\nMouseY: " + mouseY);*/
 
         //Shoot Action
         fire = actions.DiscreteActions[0];
+        //Debug.Log("\nFire: " + fire);
 
         //Character Movement
         /*Vector3 move = transform.right * moveX + transform.forward * moveZ;
