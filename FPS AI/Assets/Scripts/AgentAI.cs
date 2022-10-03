@@ -33,7 +33,7 @@ public class AgentAI : Agent
     float resetPosition = 1f;
     public override void OnEpisodeBegin()
     {
-        Debug.Log("episode begin");
+        //Debug.Log("episode begin");
         /*initialPosition = transform.localPosition;
         if (resetPosition > 1)
         {
@@ -101,8 +101,15 @@ public class AgentAI : Agent
         readyToShoot = true;
     }
 
-    /* void SetAgentReward(float reward)
+    public void OnTriggerEnter(Collider other)
     {
-        SetReward(reward);
-    }*/
+        if (other.gameObject.name.Contains("Wall"))
+        {
+            AddReward(-5f);
+        }
+        else if (other.gameObject.name.Contains("Enemy"))
+        {
+            AddReward(-5f);
+        }
+    }
 }

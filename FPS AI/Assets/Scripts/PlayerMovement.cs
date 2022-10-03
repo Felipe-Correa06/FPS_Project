@@ -32,4 +32,15 @@ public class PlayerMovement : MonoBehaviour
 
         characterController.Move(velocity * Time.deltaTime);
     }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name.Contains("Wall"))
+        {
+            Debug.Log("Player Hit wall");
+        }
+        else if (other.gameObject.name.Contains("Enemy"))
+        {
+            Debug.Log("Player Hit enemy");
+        }
+    }
 }

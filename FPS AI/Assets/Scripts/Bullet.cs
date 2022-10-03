@@ -25,7 +25,6 @@ public class Bullet : MonoBehaviour
         {
             Debug.Log("hit enemy");
             spawnEnemy.SpawnRandomEnemy();
-            spawnEnemy.spawnPoints.Remove(collision.collider.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
             Destroy(gameObject);
             agentAI.AddReward(+1f);

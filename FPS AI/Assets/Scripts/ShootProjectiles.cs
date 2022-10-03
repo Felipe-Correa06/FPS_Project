@@ -41,8 +41,4 @@ public class ShootProjectiles : MonoBehaviour
         readyToShoot = true;
     }
     
-    public void SetReward(float reward)
-    {
-        this.reward += reward;
-    }
 }
