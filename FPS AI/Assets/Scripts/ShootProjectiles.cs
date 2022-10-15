@@ -27,9 +27,9 @@ public class ShootProjectiles : MonoBehaviour
 
         if (leftMouseClick && readyToShoot)
         {
-            GameObject bullet = Instantiate(projectile, attackPoint.position, Quaternion.identity);
+            GameObject bullet = Instantiate(projectile, attackPoint.position, Quaternion.Euler(0f, 0f, 0f));
             Vector3 direction = attackPoint.position - fpsCam.transform.position;
-            direction.y += 0.5f;
+            direction.y += 0.35f;
             bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
             readyToShoot = false;
             Invoke("ResetReadyToShoot", fireRate);

@@ -29,17 +29,13 @@ public class AgentAI : Agent
     bool readyToShoot = true;
 
     //episode begin
-    Vector3 initialPosition;
-    float resetPosition = 1f;
+    public float timer = 0f;
+    Vector3 initialPosition = new Vector3(-8.7f, 1.168f, -0.3f);
     public override void OnEpisodeBegin()
     {
-        //Debug.Log("episode begin");
-        /*initialPosition = transform.localPosition;
-        if (resetPosition > 1)
-        {
-            transform.localPosition = initialPosition;
-        }
-        resetPosition=2;*/
+        Debug.Log("Episode started");
+        timer = 0f;
+        transform.position = initialPosition;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -52,9 +48,9 @@ public class AgentAI : Agent
     {
         
         //Movement Actions
-        //float moveX = actions.ContinuousActions[0];
-        //float moveZ = actions.ContinuousActions[1];
-        float mouseX = actions.ContinuousActions[0];
+        float moveX = actions.ContinuousActions[0];
+        float moveZ = actions.ContinuousActions[1];
+        float mouseX = actions.ContinuousActions[2];
         //float mouseY = actions.ContinuousActions[3];
         /*Debug.Log("MoveX: " + moveX);
         //Debug.Log("\nMoveZ: " + moveZ);
@@ -71,6 +67,9 @@ public class AgentAI : Agent
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);*/
 
+        //Character Movement
+        transform.position += (transform.right * moveX + transform.forward * moveZ) * Time.deltaTime * speed;
+
         //Mouse Movement
         //xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
@@ -82,13 +81,20 @@ public class AgentAI : Agent
 
     private void Update()
     {
+        timer += Time.deltaTime;
+        Debug.Log(timer);
+        if(timer >= 400f)
+        {
+            AddReward(-5f);
+        }
+
         transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
 
         if (fire==1 && readyToShoot)
         {
-            GameObject bullet = Instantiate(projectile, attackPoint.position, Quaternion.identity);
+            GameObject bullet = Instantiate(projectile, attackPoint.position, Quaternion.Euler(0f, 0f, 0f));
             Vector3 direction = attackPoint.position - fpsCam.transform.position;
-            direction.y += 0.5f;
+            direction.y += 0.35f;
             bullet.GetComponent<Rigidbody>().AddForce(direction.normalized * shootForce, ForceMode.Impulse);
             readyToShoot = false;
             Invoke("ResetReadyToShoot", fireRate);
@@ -105,11 +111,15 @@ public class AgentAI : Agent
     {
         if (other.gameObject.name.Contains("Wall"))
         {
+            Debug.Log("Player Hit wall");
             AddReward(-5f);
+            EndEpisode();   
         }
         else if (other.gameObject.name.Contains("Enemy"))
         {
+            Debug.Log("Player Hit enemy");
             AddReward(-5f);
+            EndEpisode();
         }
     }
 }

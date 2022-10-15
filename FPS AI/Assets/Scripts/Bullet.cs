@@ -27,8 +27,8 @@ public class Bullet : MonoBehaviour
             spawnEnemy.SpawnRandomEnemy();
             Destroy(collision.collider.gameObject);
             Destroy(gameObject);
-            agentAI.AddReward(+1f);
-            //agentAI.EndEpisode();
+            agentAI.timer = 0f;
+            agentAI.AddReward(+5f);
             
         }
         else
@@ -36,7 +36,6 @@ public class Bullet : MonoBehaviour
             Debug.Log("hit wall or floor");
             Destroy(gameObject);
             agentAI.AddReward(-5F);
-            //agentAI.EndEpisode();
         }
     }
 }
