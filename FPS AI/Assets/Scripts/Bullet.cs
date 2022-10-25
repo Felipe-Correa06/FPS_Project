@@ -23,19 +23,30 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.name.Contains("Enemy"))
         {
-            Debug.Log("hit enemy");
-            spawnEnemy.SpawnRandomEnemy();
+            //Debug.Log("hit enemy");
+            //spawnEnemy.SpawnRandomEnemy();
             Destroy(collision.collider.gameObject);
             Destroy(gameObject);
             agentAI.timer = 0f;
-            agentAI.AddReward(+5f);
-            
+            spawnEnemy.count++;
+            Debug.Log(spawnEnemy.count);
+            agentAI.AddReward(+50f);
+
+            if (spawnEnemy.count == 15){
+                agentAI.AddReward(+200f);
+                agentAI.EndEpisode();
+                for (spawnEnemy.count = 15; spawnEnemy.count > 0; spawnEnemy.count--) {
+                    spawnEnemy.SpawnRandomEnemy();
+                }
+                spawnEnemy.count = 0;
+            }
         }
         else
         {
-            Debug.Log("hit wall or floor");
+            //Debug.Log("hit wall or floor");
             Destroy(gameObject);
-            agentAI.AddReward(-5F);
+            agentAI.AddReward(-25F);   
+            //agentAI.EndEpisode();
         }
     }
 }

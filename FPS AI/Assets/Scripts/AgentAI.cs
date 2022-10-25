@@ -13,6 +13,7 @@ public class AgentAI : Agent
     public float speed = 10f;
     public float gravity = -9.81f;
     Vector3 velocity;
+    public int hit = 1;
 
     //Mouse Movement
     public float sensivity = 100f;
@@ -28,14 +29,21 @@ public class AgentAI : Agent
     public float fireRate = 5f;
     bool readyToShoot = true;
 
+    public SpawnHealth spawnHealth;
+
     //episode begin
     public float timer = 0f;
-    Vector3 initialPosition = new Vector3(-8.7f, 1.168f, -0.3f);
+    //Vector3 initialPosition = new Vector3(-8.7f, 1.168f, -0.3f);
+    Vector3 initialPosition = new Vector3(-97.5f, 1.168f, -114.1f);
     public override void OnEpisodeBegin()
     {
         Debug.Log("Episode started");
-        timer = 0f;
-        transform.position = initialPosition;
+        //timer = 0f;
+
+        if (hit == 1){
+            transform.localPosition = initialPosition;
+            hit = 0;
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -75,20 +83,18 @@ public class AgentAI : Agent
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         cameraT.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
-
-
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
-        Debug.Log(timer);
-        if(timer >= 400f)
+        //Debug.Log(timer);
+        if(timer >= 200f)
         {
-            AddReward(-5f);
+            AddReward(-100f);
+            timer = 0f;
+            EndEpisode();
         }
-
-        transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
 
         if (fire==1 && readyToShoot)
         {
@@ -111,15 +117,40 @@ public class AgentAI : Agent
     {
         if (other.gameObject.name.Contains("Wall"))
         {
-            Debug.Log("Player Hit wall");
-            AddReward(-5f);
+            //Debug.Log("Player Hit wall");
+            AddReward(-200f);
+            hit = 1;
             EndEpisode();   
         }
         else if (other.gameObject.name.Contains("Enemy"))
         {
-            Debug.Log("Player Hit enemy");
-            AddReward(-5f);
+            //Debug.Log("Player Hit enemy");
+            AddReward(-200f);
+            hit = 1;
             EndEpisode();
+        }
+        else if (other.gameObject.name.Contains("Health"))
+        {
+            Debug.Log("Player Hit health");
+            Destroy(other.GetComponent<Collider>().gameObject);
+            //spawnHealth.SpawnRandomHealth();
+            timer = 0f;
+            AddReward(+100f);
+            spawnHealth.count++;
+            Debug.Log(spawnHealth.count);
+
+            if (spawnHealth.count == 8){
+                AddReward(+200f);
+                EndEpisode();
+                Debug.Log(spawnHealth.count);
+                for (spawnHealth.count = 8; spawnHealth.count > 0; spawnHealth.count--) {
+                    spawnHealth.SpawnRandomHealth();
+                }
+                spawnHealth.count = 0;
+            }
+
+            //hit = 1;
+            //EndEpisode();
         }
     }
 }

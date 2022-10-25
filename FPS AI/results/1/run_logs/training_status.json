@@ -1,0 +1,110 @@
+{
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cu110"
+    },
+    "FPS Agent": {
+        "checkpoints": [
+            {
+                "steps": 6736013,
+                "file_path": "results\\1\\FPS Agent\\FPS Agent-6736013.onnx",
+                "reward": 589.2857142857143,
+                "creation_time": 1666653399.7420921,
+                "auxillary_file_paths": [
+                    "results\\1\\FPS Agent\\FPS Agent-6736013.pt"
+                ]
+            },
+            {
+                "steps": 6738591,
+                "file_path": "results\\1\\FPS Agent\\FPS Agent-6738591.onnx",
+                "reward": 1012.5,
+                "creation_time": 1666653564.6415381,
+                "auxillary_file_paths": [
+                    "results\\1\\FPS Agent\\FPS Agent-6738591.pt"
+                ]
+            },
+            {
+                "steps": 6739962,
+                "file_path": "results\\1\\FPS Agent\\FPS Agent-6739962.onnx",
+                "reward": -240.83333333333334,
+                "creation_time": 1666656570.0124807,
+                "auxillary_file_paths": [
+                    "results\\1\\FPS Agent\\FPS Agent-6739962.pt"
+                ]
+            },
+            {
+                "steps": 6740723,
+                "file_path": "results\\1\\FPS Agent\\FPS Agent-6740723.onnx",
+                "reward": -243.90243902439025,
+                "creation_time": 1666656578.5009117,
+                "auxillary_file_paths": [
+                    "results\\1\\FPS Agent\\FPS Agent-6740723.pt"
+                ]
+            },
+            {
+                "steps": 6743164,
+                "file_path": "results\\1\\FPS Agent\\FPS Agent-6743164.onnx",
+                "reward": -231.25,
+                "creation_time": 1666656646.0445824,
+                "auxillary_file_paths": [
+                    "results\\1\\FPS Agent\\FPS Agent-6743164.pt"
+                ]
+            },
+            {
+                "steps": 6744201,
+                "file_path": "results\\1\\FPS Agent\\FPS Agent-6744201.onnx",
+                "reward": -234.52380952380952,
+                "creation_time": 1666656674.8308663,
+                "auxillary_file_paths": [
+                    "results\\1\\FPS Agent\\FPS Agent-6744201.pt"
+                ]
+            },
+            {
+                "steps": 6744501,
+                "file_path": "results\\1\\FPS Agent\\FPS Agent-6744501.onnx",
+                "reward": -230.0,
+                "creation_time": 1666657632.4350307,
+                "auxillary_file_paths": [
+                    "results\\1\\FPS Agent\\FPS Agent-6744501.pt"
+                ]
+            },
+            {
+                "steps": 6749987,
+                "file_path": "results\\1\\FPS Agent\\FPS Agent-6749987.onnx",
+                "reward": 12.5,
+                "creation_time": 1666657708.8144102,
+                "auxillary_file_paths": [
+                    "results\\1\\FPS Agent\\FPS Agent-6749987.pt"
+                ]
+            },
+            {
+                "steps": 6752830,
+                "file_path": "results\\1\\FPS Agent\\FPS Agent-6752830.onnx",
+                "reward": -80.0,
+                "creation_time": 1666657737.4521422,
+                "auxillary_file_paths": [
+                    "results\\1\\FPS Agent\\FPS Agent-6752830.pt"
+                ]
+            },
+            {
+                "steps": 6755646,
+                "file_path": "results\\1\\FPS Agent\\FPS Agent-6755646.onnx",
+                "reward": null,
+                "creation_time": 1666658019.983367,
+                "auxillary_file_paths": [
+                    "results\\1\\FPS Agent\\FPS Agent-6755646.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 6755646,
+            "file_path": "results\\1\\FPS Agent.onnx",
+            "reward": null,
+            "creation_time": 1666658019.983367,
+            "auxillary_file_paths": [
+                "results\\1\\FPS Agent\\FPS Agent-6755646.pt"
+            ]
+        }
+    }
+}
