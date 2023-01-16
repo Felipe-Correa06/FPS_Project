@@ -6,7 +6,6 @@ TagManager:
   tags:
   - enemy
   - wall
-  - health
   layers:
   - Default
   - TransparentFX

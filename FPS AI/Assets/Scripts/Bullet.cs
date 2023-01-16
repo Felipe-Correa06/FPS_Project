@@ -6,7 +6,6 @@ public class Bullet : MonoBehaviour
 {
     public AgentAI agentAI;
     public SpawnEnemy spawnEnemy;
-    //public ShootProjectiles sProjectiles;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,30 +22,31 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.name.Contains("Enemy"))
         {
-            //Debug.Log("hit enemy");
+            Debug.Log("Shot hit enemy");
             //spawnEnemy.SpawnRandomEnemy();
             Destroy(collision.collider.gameObject);
             Destroy(gameObject);
             agentAI.timer = 0f;
-            spawnEnemy.count++;
-            Debug.Log(spawnEnemy.count);
-            agentAI.AddReward(+50f);
+            agentAI.AddReward(+5f);
 
-            if (spawnEnemy.count == 15){
-                agentAI.AddReward(+200f);
-                agentAI.EndEpisode();
-                for (spawnEnemy.count = 15; spawnEnemy.count > 0; spawnEnemy.count--) {
+            spawnEnemy.count++;
+            if (spawnEnemy.count == 340)
+            {
+                Debug.Log(spawnEnemy.count);
+                for (spawnEnemy.count = 340; spawnEnemy.count > 0; spawnEnemy.count--)
+                {
                     spawnEnemy.SpawnRandomEnemy();
                 }
                 spawnEnemy.count = 0;
+                agentAI.EndEpisode();
             }
+
         }
-        else
+        else if (collision.gameObject.name.Contains("Wall") || collision.gameObject.name.Contains("Floor") || collision.gameObject.name.Contains("Guide"))
         {
-            //Debug.Log("hit wall or floor");
+            Debug.Log("Shot hit wall or floor or guide");
             Destroy(gameObject);
-            agentAI.AddReward(-25F);   
-            //agentAI.EndEpisode();
+            agentAI.AddReward(-15f);
         }
     }
 }

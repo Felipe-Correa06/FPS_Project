@@ -13,7 +13,6 @@ public class AgentAI : Agent
     public float speed = 10f;
     public float gravity = -9.81f;
     Vector3 velocity;
-    public int hit = 1;
 
     //Mouse Movement
     public float sensivity = 100f;
@@ -29,21 +28,25 @@ public class AgentAI : Agent
     public float fireRate = 5f;
     bool readyToShoot = true;
 
-    public SpawnHealth spawnHealth;
-
     //episode begin
     public float timer = 0f;
-    //Vector3 initialPosition = new Vector3(-8.7f, 1.168f, -0.3f);
-    Vector3 initialPosition = new Vector3(-97.5f, 1.168f, -114.1f);
+    //Vector3 initialPosition = new Vector3(-341f, 1.94f, 379f);
+    //Vector3 initialPosition = new Vector3(0f, 1.94f, 0f);
+    //Vector3 initialPosition = new Vector3(187f, 1.94f, 308f);
+    Vector3 initialPosition = new Vector3(-342f, 1.94f, -350f);
+
+    //SpawnGuide
+    public SpawnGuide spawnGuide;
     public override void OnEpisodeBegin()
     {
         Debug.Log("Episode started");
-        //timer = 0f;
-
-        if (hit == 1){
-            transform.localPosition = initialPosition;
-            hit = 0;
+        timer = 0f;
+        transform.localPosition = initialPosition;
+        if (characterController.enabled == false)
+        {
+            characterController.enabled = true;
         }
+        
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -70,30 +73,26 @@ public class AgentAI : Agent
         //Debug.Log("\nFire: " + fire);
 
         //Character Movement
-        /*Vector3 move = transform.right * moveX + transform.forward * moveZ;
+        Vector3 move = transform.right * moveX + transform.forward * moveZ;
         characterController.Move(move * speed * Time.deltaTime);
         velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);*/
-
-        //Character Movement
-        transform.position += (transform.right * moveX + transform.forward * moveZ) * Time.deltaTime * speed;
+        characterController.Move(velocity * Time.deltaTime);
 
         //Mouse Movement
         //xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         cameraT.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+
+
     }
 
     private void Update()
     {
         timer += Time.deltaTime;
-        //Debug.Log(timer);
-        if(timer >= 200f)
+        if(timer >= 85f)
         {
-            AddReward(-100f);
-            timer = 0f;
-            EndEpisode();
+            AddReward(-1f);
         }
 
         if (fire==1 && readyToShoot)
@@ -117,40 +116,39 @@ public class AgentAI : Agent
     {
         if (other.gameObject.name.Contains("Wall"))
         {
-            //Debug.Log("Player Hit wall");
-            AddReward(-200f);
-            hit = 1;
+            Debug.Log("Player collided with wall");
+            characterController.enabled = false;
+            AddReward(-20f);
             EndEpisode();   
         }
         else if (other.gameObject.name.Contains("Enemy"))
         {
-            //Debug.Log("Player Hit enemy");
-            AddReward(-200f);
-            hit = 1;
+            Debug.Log("Player collided with enemy");
+            characterController.enabled = false;
+            AddReward(-20f);
             EndEpisode();
         }
-        else if (other.gameObject.name.Contains("Health"))
+        else if (other.gameObject.name.Contains("Guide"))
         {
-            Debug.Log("Player Hit health");
+            Debug.Log("Player collided with guide");
             Destroy(other.GetComponent<Collider>().gameObject);
-            //spawnHealth.SpawnRandomHealth();
-            timer = 0f;
-            AddReward(+100f);
-            spawnHealth.count++;
-            Debug.Log(spawnHealth.count);
+            AddReward(+5f);
 
-            if (spawnHealth.count == 8){
-                AddReward(+200f);
-                EndEpisode();
-                Debug.Log(spawnHealth.count);
-                for (spawnHealth.count = 8; spawnHealth.count > 0; spawnHealth.count--) {
-                    spawnHealth.SpawnRandomHealth();
+            //spawnGuide.SpawnRandomGuide();
+            timer = 0f;
+
+            spawnGuide.count++;
+            if (spawnGuide.count == 200)
+            {
+                Debug.Log(spawnGuide.count);
+                for (spawnGuide.count = 200; spawnGuide.count > 0; spawnGuide.count--)
+                {
+                    spawnGuide.SpawnRandomGuide();
                 }
-                spawnHealth.count = 0;
+                spawnGuide.count = 0;
+                EndEpisode();
             }
 
-            //hit = 1;
-            //EndEpisode();
         }
     }
 }
