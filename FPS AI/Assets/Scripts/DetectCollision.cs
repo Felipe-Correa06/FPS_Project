@@ -26,11 +26,13 @@ public class DetectCollision : MonoBehaviour
             if (gameObject.name.Contains("Enemy"))
             {
                 Destroy(gameObject);
+                Debug.Log("Detected Enemy collision with wall");
                 spawnEnemy.SpawnRandomEnemy();
             }
             else if (gameObject.name.Contains("Guide"))
             {
                 Destroy(gameObject);
+                Debug.Log("Detected Guide collision with wall");
                 spawnGuide.SpawnRandomGuide();
             }
         }

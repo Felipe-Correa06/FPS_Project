@@ -30,10 +30,12 @@ public class AgentAI : Agent
 
     //episode begin
     public float timer = 0f;
-    //Vector3 initialPosition = new Vector3(-341f, 1.94f, 379f);
+   
     //Vector3 initialPosition = new Vector3(0f, 1.94f, 0f);
-    //Vector3 initialPosition = new Vector3(187f, 1.94f, 308f);
-    Vector3 initialPosition = new Vector3(-342f, 1.94f, -350f);
+    Vector3 initialPosition = new Vector3(124f, 1.94f, 183f);
+    //Vector3 initialPosition = new Vector3(-241f, 1.94f, -235f);
+    //Vector3 initialPosition = new Vector3(-241f, 1.94f, 235f);
+    //Vector3 initialPosition = new Vector3(27f, 1.94f, -256f);
 
     //SpawnGuide
     public SpawnGuide spawnGuide;
@@ -41,7 +43,7 @@ public class AgentAI : Agent
     {
         Debug.Log("Episode started");
         timer = 0f;
-        transform.localPosition = initialPosition;
+        //transform.localPosition = initialPosition;
         if (characterController.enabled == false)
         {
             characterController.enabled = true;
@@ -90,7 +92,7 @@ public class AgentAI : Agent
     private void Update()
     {
         timer += Time.deltaTime;
-        if(timer >= 85f)
+        if(timer >= 20f)
         {
             AddReward(-1f);
         }
@@ -114,7 +116,7 @@ public class AgentAI : Agent
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("Wall"))
+        if (other.gameObject.name.Contains("Wall") || other.gameObject.tag.Contains("wall"))
         {
             Debug.Log("Player collided with wall");
             characterController.enabled = false;
@@ -128,20 +130,21 @@ public class AgentAI : Agent
             AddReward(-20f);
             EndEpisode();
         }
-        else if (other.gameObject.name.Contains("Guide"))
+        else if (other.gameObject.name.Contains("Guide") || other.gameObject.tag.Contains("guide"))
         {
             Debug.Log("Player collided with guide");
             Destroy(other.GetComponent<Collider>().gameObject);
-            AddReward(+5f);
+            AddReward(+10f);
 
             //spawnGuide.SpawnRandomGuide();
             timer = 0f;
 
             spawnGuide.count++;
-            if (spawnGuide.count == 200)
+            if (spawnGuide.count == 5)
             {
+                //AddReward(+5f);
                 Debug.Log(spawnGuide.count);
-                for (spawnGuide.count = 200; spawnGuide.count > 0; spawnGuide.count--)
+                for (spawnGuide.count = 5; spawnGuide.count > 0; spawnGuide.count--)
                 {
                     spawnGuide.SpawnRandomGuide();
                 }

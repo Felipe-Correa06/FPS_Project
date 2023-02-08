@@ -20,25 +20,29 @@ public class Bullet : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name.Contains("Enemy"))
+        if (collision.gameObject.name.Contains("Enemy") || collision.gameObject.tag.Contains("enemy"))
         {
             Debug.Log("Shot hit enemy");
             //spawnEnemy.SpawnRandomEnemy();
-            Destroy(collision.collider.gameObject);
-            Destroy(gameObject);
             agentAI.timer = 0f;
             agentAI.AddReward(+5f);
+            Destroy(gameObject);
 
-            spawnEnemy.count++;
-            if (spawnEnemy.count == 340)
-            {
-                Debug.Log(spawnEnemy.count);
-                for (spawnEnemy.count = 340; spawnEnemy.count > 0; spawnEnemy.count--)
+            if (collision.gameObject.name != "First Person Player") {
+                Destroy(collision.collider.gameObject);
+               
+                spawnEnemy.count++;
+                if (spawnEnemy.count == 12)
                 {
-                    spawnEnemy.SpawnRandomEnemy();
+                    agentAI.AddReward(+50f);
+                    Debug.Log(spawnEnemy.count);
+                    for (spawnEnemy.count = 12; spawnEnemy.count > 0; spawnEnemy.count--)
+                    {
+                        spawnEnemy.SpawnRandomEnemy();
+                    }
+                    spawnEnemy.count = 0;
+                    agentAI.EndEpisode();
                 }
-                spawnEnemy.count = 0;
-                agentAI.EndEpisode();
             }
 
         }

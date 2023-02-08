@@ -15,7 +15,7 @@ public class SpawnGuide : MonoBehaviour
 
     public int count = 0;
 
-    float distance = 30f;
+    float distance = 50f;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +34,5 @@ public class SpawnGuide : MonoBehaviour
         //Vector3 enemyPosition = new Vector3(UnityEngine.Random.Range(-5.3f, 21.2f), 2.8f, UnityEngine.Random.Range(-19.8f, 19.8f));
         Vector3 guidePosition = new Vector3(UnityEngine.Random.Range(wall1.transform.position.x - distance, wall.transform.position.x + distance), 2.38f, UnityEngine.Random.Range(wall3.transform.position.z + distance, wall2.transform.position.z - distance));
         Instantiate(guidePrefab, guidePosition, transform.localRotation * Quaternion.Euler(0f, 90f, 0f));
-        distance = UnityEngine.Random.Range(30f, 100f);
     }
 }
