@@ -6,3 +6,6 @@ Project developed using the Untity Engine and Unity ML-Agents Toolkit (https://g
   * Make the environment created available to serve as a prototype for projects by independent developers.
 
 The IA isn't perfect, it could be more trained to improve its performance, but is a demonstration of the Reinforcement Learning capacity.
+
+# Demo Video
+Yotube short video showing the IA performing in a simple environment: https://youtu.be/Xspl35XVnQA
