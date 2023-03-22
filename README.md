@@ -8,4 +8,4 @@ Project developed using the Untity Engine and Unity ML-Agents Toolkit (https://g
 The IA isn't perfect, it could be more trained to improve its performance, but is a demonstration of the Reinforcement Learning capacity.
 
 # Demo Video
-Yotube short video showing the IA performing in a simple environment: https://youtu.be/Xspl35XVnQA
+Short video showing the IA performing in a simple environment: https://youtu.be/Xspl35XVnQA
