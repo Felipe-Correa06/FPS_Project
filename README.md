@@ -4,3 +4,5 @@ Project developed using the Untity Engine and Unity ML-Agents Toolkit (https://g
   * Create an artificial intelligence capable of learning from its mistakes and successes;
   * Create an artificial intelligence that adapts to situations similar to the one previously trained, according to the acquired experience;
   * Make the environment created available to serve as a prototype for projects by independent developers.
+
+The IA isn't perfect, it could be more trained to improve its performance, but is a demonstration of the Reinforcement Learning capacity.
